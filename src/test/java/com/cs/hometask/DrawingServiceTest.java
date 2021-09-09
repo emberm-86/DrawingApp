@@ -58,7 +58,6 @@ public class DrawingServiceTest {
     for (int i = y + 1; i < HEIGHT + 1; i++) {
       Assertions.assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
-
     Assertions.assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[HEIGHT + 1]));
   }
 
@@ -84,7 +83,6 @@ public class DrawingServiceTest {
     for (int i = y2 + 1; i < HEIGHT + 1; i++) {
       Assertions.assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
-
     Assertions.assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[HEIGHT + 1]));
   }
 
