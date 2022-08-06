@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import static com.cs.hometask.Canvas.CANVAS_FRAME_SIZE;
-import static java.lang.String.valueOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -48,22 +47,22 @@ public class DrawingServiceTest {
 
     drawingService.addShape(new Line(x1, y, x2, y));
 
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[0]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[0]));
 
     for (int i = 1; i < y; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
 
-    String line = valueOf(canvas.content[y]);
+    String line = String.valueOf(canvas.content[y]);
 
     assertEquals(getNumberOfDrawnCharsInALine(line), x2 - x1 + 1);
     assertEquals(line.indexOf(DRAWN_CHAR), x1);
     assertEquals(line.lastIndexOf(DRAWN_CHAR), x2);
 
     for (int i = y + 1; i < HEIGHT + 1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[HEIGHT + 1]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[HEIGHT + 1]));
   }
 
   @Test
@@ -74,22 +73,22 @@ public class DrawingServiceTest {
 
     drawingService.addShape(new Line(x, y1, x, y2));
 
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[0]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[0]));
 
     for (int i = 1; i < y1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
 
     for (int i = y1; i < y2; i++) {
-      String line = valueOf(canvas.content[i]);
+      String line = String.valueOf(canvas.content[i]);
       assertEquals(getNumberOfDrawnCharsInALine(line), 1);
       assertEquals(line.indexOf(DRAWN_CHAR), x);
     }
 
     for (int i = y2 + 1; i < HEIGHT + 1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[HEIGHT + 1]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[HEIGHT + 1]));
   }
 
   @Test
@@ -101,14 +100,14 @@ public class DrawingServiceTest {
 
     drawingService.addShape(new Rectangle(x1, y1, x2, y2));
 
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[0]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[0]));
 
     for (int i = 1; i < y1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
 
     for (int i = y1; i < y2 + 1; i++) {
-      String line = valueOf(canvas.content[i]);
+      String line = String.valueOf(canvas.content[i]);
       if (i > y1 && i < y2) {
         assertEquals(getNumberOfDrawnCharsInALine(line), 2);
       } else {
@@ -119,9 +118,9 @@ public class DrawingServiceTest {
     }
 
     for (int i = y2 + 1; i < HEIGHT + 1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[HEIGHT + 1]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[HEIGHT + 1]));
   }
 
   @Test
@@ -137,14 +136,14 @@ public class DrawingServiceTest {
     drawingService.addShape(new Rectangle(x1, y1, x2, y2));
     drawingService.bucketFill(bx1, by1, FILLING_CHAR);
 
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[0]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[0]));
 
     for (int i = 1; i < y1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
 
     for (int i = y1; i < y2 + 1; i++) {
-      String line = valueOf(canvas.content[i]);
+      String line = String.valueOf(canvas.content[i]);
       if (i > y1 && i < y2) {
         assertEquals(getNumberOfDrawnCharsInALine(line), 2);
         assertEquals(getNumberOfFillingCharsInALine(line), x2 - x1 - 1);
@@ -157,9 +156,9 @@ public class DrawingServiceTest {
     }
 
     for (int i = y2 + 1; i < HEIGHT + 1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[HEIGHT + 1]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[HEIGHT + 1]));
   }
 
   @Test
@@ -175,14 +174,14 @@ public class DrawingServiceTest {
     drawingService.addShape(new Rectangle(x1, y1, x2, y2));
     drawingService.bucketFill(bx1, by1, FILLING_CHAR);
 
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[0]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[0]));
 
     for (int i = 1; i < y1; i++) {
-      assertEquals(getNumberOfFillingCharsInALine(valueOf(canvas.content[i])), WIDTH);
+      assertEquals(getNumberOfFillingCharsInALine(String.valueOf(canvas.content[i])), WIDTH);
     }
 
     for (int i = y1; i < y2 + 1; i++) {
-      String line = valueOf(canvas.content[i]);
+      String line = String.valueOf(canvas.content[i]);
       if (i > y1 && i < y2) {
         assertEquals(getNumberOfDrawnCharsInALine(line), 2);
       } else {
@@ -194,9 +193,9 @@ public class DrawingServiceTest {
     }
 
     for (int i = y2 + 1; i < HEIGHT + 1; i++) {
-      assertEquals(getNumberOfFillingCharsInALine(valueOf(canvas.content[i])), WIDTH);
+      assertEquals(getNumberOfFillingCharsInALine(String.valueOf(canvas.content[i])), WIDTH);
     }
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[HEIGHT + 1]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[HEIGHT + 1]));
   }
 
   @Test
@@ -208,14 +207,14 @@ public class DrawingServiceTest {
 
     drawingService.addShape(new Rectangle(x2, y2, x1, y1));
 
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[0]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[0]));
 
     for (int i = 1; i < y1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
 
     for (int i = y1; i < y2 + 1; i++) {
-      String line = valueOf(canvas.content[i]);
+      String line = String.valueOf(canvas.content[i]);
       if (i > y1 && i < y2) {
         assertEquals(getNumberOfDrawnCharsInALine(line), 2);
       } else {
@@ -226,19 +225,19 @@ public class DrawingServiceTest {
     }
 
     for (int i = y2 + 1; i < HEIGHT + 1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[HEIGHT + 1]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[HEIGHT + 1]));
   }
 
   @Test
   public void testDrawAtTheCanvasBorders() {
     drawingService.addShape(new Rectangle(1, 1, WIDTH, HEIGHT));
 
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[0]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[0]));
 
     for (int i = 1; i < HEIGHT + 1; i++) {
-      String line = valueOf(canvas.content[i]);
+      String line = String.valueOf(canvas.content[i]);
       if (i > 1 && i < HEIGHT) {
         assertEquals(getNumberOfDrawnCharsInALine(line), 2);
       } else {
@@ -247,7 +246,7 @@ public class DrawingServiceTest {
       assertEquals(line.indexOf(DRAWN_CHAR), 1);
       assertEquals(line.lastIndexOf(DRAWN_CHAR), WIDTH);
     }
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[HEIGHT + 1]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[HEIGHT + 1]));
   }
 
   @Test
@@ -293,14 +292,14 @@ public class DrawingServiceTest {
     drawingService.bucketFill(bx1, by1, FILLING_CHAR);
     drawingService.addShape(new Rectangle(x1, y1, x2, y2));
 
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[0]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[0]));
 
     for (int i = 1; i < y1; i++) {
-      assertEquals(getNumberOfFillingCharsInALine(valueOf(canvas.content[i])), WIDTH);
+      assertEquals(getNumberOfFillingCharsInALine(String.valueOf(canvas.content[i])), WIDTH);
     }
 
     for (int i = y1; i < y2 + 1; i++) {
-      String line = valueOf(canvas.content[i]);
+      String line = String.valueOf(canvas.content[i]);
       if (i > y1 && i < y2) {
         assertEquals(getNumberOfDrawnCharsInALine(line), 2);
         assertEquals(getNumberOfFillingCharsInALine(line), WIDTH - 2);
@@ -313,9 +312,9 @@ public class DrawingServiceTest {
     }
 
     for (int i = y2 + 1; i < HEIGHT + 1; i++) {
-      assertEquals(getNumberOfFillingCharsInALine(valueOf(canvas.content[i])), WIDTH);
+      assertEquals(getNumberOfFillingCharsInALine(String.valueOf(canvas.content[i])), WIDTH);
     }
-    assertEquals(getTopDownBoundaryLine(), valueOf(canvas.content[HEIGHT + 1]));
+    assertEquals(getTopDownBoundaryLine(), String.valueOf(canvas.content[HEIGHT + 1]));
   }
 
   @Test
@@ -327,7 +326,7 @@ public class DrawingServiceTest {
     drawingService.addShape(new Line(x1, y1, x2, y1));
     drawingService.undoChange();
 
-    assertEquals(getEmptyInnerLine(), valueOf(canvas.content[y1]));
+    assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[y1]));
 
     x1 = 6;
     y1 = 3;
@@ -337,7 +336,7 @@ public class DrawingServiceTest {
     drawingService.undoChange();
 
     for (int i = y1; i < y2 + 1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
 
     x1 = 14;
@@ -348,7 +347,7 @@ public class DrawingServiceTest {
     drawingService.addShape(new Rectangle(x1, y1, x2, y2));
     drawingService.undoChange();
     for (int i = y1; i < y2 + 1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
 
     int bx1 = 10;
@@ -359,11 +358,11 @@ public class DrawingServiceTest {
     drawingService.undoChange();
 
     for (int i = 1; i < y1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
 
     for (int i = y1; i < y2 + 1; i++) {
-      String line = valueOf(canvas.content[i]);
+      String line = String.valueOf(canvas.content[i]);
       if (i > y1 && i < y2) {
         assertEquals(getNumberOfDrawnCharsInALine(line), 2);
       } else {
@@ -374,7 +373,7 @@ public class DrawingServiceTest {
     }
 
     for (int i = y2 + 1; i < HEIGHT + 1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
 
     bx1 = 15;
@@ -383,11 +382,11 @@ public class DrawingServiceTest {
     drawingService.undoChange();
 
     for (int i = 1; i < y1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
 
     for (int i = y1; i < y2 + 1; i++) {
-      String line = valueOf(canvas.content[i]);
+      String line = String.valueOf(canvas.content[i]);
       if (i > y1 && i < y2) {
         assertEquals(getNumberOfDrawnCharsInALine(line), 2);
       } else {
@@ -398,7 +397,7 @@ public class DrawingServiceTest {
     }
 
     for (int i = y2 + 1; i < HEIGHT + 1; i++) {
-      assertEquals(getEmptyInnerLine(), valueOf(canvas.content[i]));
+      assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }
   }
 
