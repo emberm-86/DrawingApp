@@ -11,7 +11,7 @@ public class Line extends Shape {
   }
 
   @Override
-  public void draw(Stack<Map<Coord, Character>> stateCache, Canvas canvas) {
+  public void draw(Stack<Map<Coordinate, Character>> stateCache, Canvas canvas) {
     stateCache.push(getState(x1, y1, x2, y2, canvas));
     addLine(x1, y1, x2, y2, canvas);
   }
@@ -26,15 +26,15 @@ public class Line extends Shape {
     }
   }
 
-  protected Map<Coord, Character> getState(int x1, int y1, int x2, int y2, Canvas canvas) {
-    Map<Coord, Character> state = new HashMap<>();
+  protected Map<Coordinate, Character> getState(int x1, int y1, int x2, int y2, Canvas canvas) {
+    Map<Coordinate, Character> state = new HashMap<>();
 
     for (int x = x1; x < x2 + 1; x++) {
-      state.put(new Coord(y1, x), canvas.content[y1][x]);
+      state.put(new Coordinate(y1, x), canvas.content[y1][x]);
     }
 
     for (int y = y1; y < y2 + 1; y++) {
-      state.put(new Coord(y, x2), canvas.content[y][x2]);
+      state.put(new Coordinate(y, x2), canvas.content[y][x2]);
     }
     return state;
   }

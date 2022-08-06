@@ -1,7 +1,5 @@
 package com.cs.hometask;
 
-import static com.cs.hometask.Canvas.CANVAS_FRAME_SIZE;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -9,10 +7,12 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
+import static com.cs.hometask.Canvas.CANVAS_FRAME_SIZE;
+
 public class DrawingServiceImpl implements DrawingService {
 
   private final Canvas canvas;
-  private final Stack<Map<Coord, Character>> stateCache;
+  private final Stack<Map<Coordinate, Character>> stateCache;
 
   public DrawingServiceImpl(Canvas canvas) {
     this.canvas = canvas;
@@ -38,22 +38,22 @@ public class DrawingServiceImpl implements DrawingService {
       return;
     }
 
-    Map<Coord, Character> beforeState = new HashMap<>();
+    Map<Coordinate, Character> beforeState = new HashMap<>();
 
     boolean[][] vis = new boolean[canvas.content.length][canvas.content[0].length];
 
-    Queue<Coord> queue = new LinkedList<>();
+    Queue<Coordinate> queue = new LinkedList<>();
 
-    queue.add(new Coord(y, x));
+    queue.add(new Coordinate(y, x));
 
     while (!queue.isEmpty()) {
-      Coord coord = queue.peek();
+      Coordinate coordinate = queue.peek();
 
-      int x1 = coord.x;
-      int y1 = coord.y;
+      int x1 = coordinate.x;
+      int y1 = coordinate.y;
 
       char preColor = canvas.content[y1][x1];
-      beforeState.put(new Coord(y1, x1), preColor);
+      beforeState.put(new Coordinate(y1, x1), preColor);
       canvas.content[y1][x1] = c;
 
       queue.remove();
@@ -78,10 +78,10 @@ public class DrawingServiceImpl implements DrawingService {
   }
 
   private void addNeighbourToQueue(int ny, int nx, char preColor, boolean[][] vis,
-      Map<Coord, Character> beforeState, Queue<Coord> queue) {
-    Coord coord = new Coord(ny, nx);
-    beforeState.put(coord, preColor);
-    queue.add(coord);
+      Map<Coordinate, Character> beforeState, Queue<Coordinate> queue) {
+    Coordinate coordinate = new Coordinate(ny, nx);
+    beforeState.put(coordinate, preColor);
+    queue.add(coordinate);
     vis[ny][nx] = true;
   }
 
@@ -94,7 +94,7 @@ public class DrawingServiceImpl implements DrawingService {
   @Override
   public void undoChange() {
     if (!stateCache.isEmpty()) {
-      Map<Coord, Character> lastChange = stateCache.pop();
+      Map<Coordinate, Character> lastChange = stateCache.pop();
       lastChange.forEach((k, v) -> canvas.content[k.y][k.x] = v);
     }
   }

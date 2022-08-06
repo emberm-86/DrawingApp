@@ -10,7 +10,7 @@ public class Rectangle extends Line {
   }
 
   @Override
-  public void draw(Stack<Map<Coord, Character>> stateCache, Canvas canvas) {
+  public void draw(Stack<Map<Coordinate, Character>> stateCache, Canvas canvas) {
     stateCache.push(getState(canvas));
     addRectangle(canvas);
   }
@@ -22,8 +22,8 @@ public class Rectangle extends Line {
     super.addLine(x1, y2, x2, y2, canvas);
   }
 
-  private Map<Coord, Character> getState(Canvas canvas) {
-    Map<Coord, Character> state = super.getState(x1, y1, x2, y1, canvas);
+  private Map<Coordinate, Character> getState(Canvas canvas) {
+    Map<Coordinate, Character> state = super.getState(x1, y1, x2, y1, canvas);
     state.putAll(super.getState(x1, y1, x1, y2, canvas));
     state.putAll(super.getState(x2, y1, x2, y2, canvas));
     state.putAll(super.getState(x1, y2, x2, y2, canvas));

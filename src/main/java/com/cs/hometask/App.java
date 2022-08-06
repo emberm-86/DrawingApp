@@ -3,8 +3,12 @@ package com.cs.hometask;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static com.cs.hometask.ShapeFactory.createShape;
+import static java.lang.Integer.parseInt;
+import static java.util.Locale.ROOT;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * Console drawing application.
@@ -23,7 +27,7 @@ public class App {
 
   public static void main(String[] args) {
     Map<String, Integer> argNumByTypeCode = IntStream.range(0, VALID_TYPE_CODES.size()).boxed()
-        .collect(Collectors.toMap(VALID_TYPE_CODES::get, VALID_ARG_NUMS::get));
+        .collect(toMap(VALID_TYPE_CODES::get, VALID_ARG_NUMS::get));
 
     printMenu();
 
@@ -31,7 +35,7 @@ public class App {
 
     while (in.hasNext()) {
       String[] arguments = in.nextLine().split(" ");
-      final String typeCode = arguments[0].toUpperCase(Locale.ROOT);
+      String typeCode = arguments[0].toUpperCase(ROOT);
 
       if ("Q".equals(typeCode)) {
         break;
@@ -84,15 +88,15 @@ public class App {
     switch (typeCode) {
       case "C":
         canvas = new Canvas(TOP_DOWN_BOUNDARY_CHAR, LEFT_RIGHT_BOUNDARY_CHAR,
-            Integer.parseInt(arguments[1]), Integer.parseInt(arguments[2]));
+            parseInt(arguments[1]), parseInt(arguments[2]));
         drawingService = new DrawingServiceImpl(canvas);
         break;
       case "R":
       case "L":
-        drawingService.addShape(ShapeFactory.createShape(typeCode, arguments));
+        drawingService.addShape(createShape(typeCode, arguments));
         break;
       case "B":
-        drawingService.bucketFill(Integer.parseInt(arguments[1]), Integer.parseInt(arguments[2]),
+        drawingService.bucketFill(parseInt(arguments[1]), parseInt(arguments[2]),
             arguments[3].charAt(0));
         break;
       case "U":

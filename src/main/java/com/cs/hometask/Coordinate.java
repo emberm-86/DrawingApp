@@ -2,7 +2,7 @@ package com.cs.hometask;
 
 import java.util.Objects;
 
-public class Coord {
+public class Coordinate {
 
   public int y;
   public int x;
@@ -13,7 +13,7 @@ public class Coord {
    It is more easy to validate if we print the canvas content by row,
    which is a big help in the unit testing.
    */
-  public Coord(int y, int x) {
+  public Coordinate(int y, int x) {
     this.y = y;
     this.x = x;
   }
@@ -26,8 +26,8 @@ public class Coord {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Coord coord = (Coord) o;
-    return y == coord.y && x == coord.x;
+    Coordinate coordinate = (Coordinate) o;
+    return y == coordinate.y && x == coordinate.x;
   }
 
   @Override

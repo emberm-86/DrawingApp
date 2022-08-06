@@ -15,10 +15,10 @@ public abstract class Shape {
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
-    swapCoordsIfNeeded();
+    swapCoordinatesIfNeeded();
   }
 
-  private void swapCoordsIfNeeded() {
+  private void swapCoordinatesIfNeeded() {
     if (x1 > x2) {
       int c = x1;
       x1 = x2;
@@ -32,7 +32,7 @@ public abstract class Shape {
     }
   }
 
-  public abstract void draw(Stack<Map<Coord, Character>> stateCache, Canvas canvas);
+  public abstract void draw(Stack<Map<Coordinate, Character>> stateCache, Canvas canvas);
 
   @Override
   public String toString() {
