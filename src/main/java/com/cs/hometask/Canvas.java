@@ -3,7 +3,6 @@ package com.cs.hometask;
 public class Canvas {
 
   static final Integer CANVAS_FRAME_SIZE = 1;
-
   final char[][] content;
   private final char td;
   private final char lr;
