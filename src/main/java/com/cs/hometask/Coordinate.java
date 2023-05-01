@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Coordinate {
 
-  public int y;
-  public int x;
+  int y;
+  int x;
 
   /*
    Canvas content array is indexed in reversed way if we compare with the input coordinates.

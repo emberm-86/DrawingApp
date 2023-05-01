@@ -8,6 +8,10 @@ public interface DrawingService {
 
   void draw();
 
+  boolean isCanvasCreated();
+
+  void setCanvas(Canvas canvas);
+
   void clearCanvas();
 
   void undoChange();

@@ -1,6 +1,7 @@
 package com.cs.hometask;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.cs.hometask.Canvas.CANVAS_FRAME_SIZE;
@@ -24,9 +25,14 @@ public class DrawingServiceTest {
   private static final Integer WIDTH = 20;
   private static final Integer HEIGHT = 4;
 
-  private final Canvas canvas = new Canvas(TOP_DOWN_BOUNDARY_CHAR, LEFT_RIGHT_BOUNDARY_CHAR, WIDTH,
-      HEIGHT);
-  private final DrawingService drawingService = new DrawingServiceImpl(canvas);
+  private static final Canvas canvas = new Canvas(TOP_DOWN_BOUNDARY_CHAR, LEFT_RIGHT_BOUNDARY_CHAR,
+      WIDTH, HEIGHT);
+  private static final DrawingService drawingService = new DrawingServiceImpl();
+
+  @BeforeAll
+  public static void setUp() {
+    drawingService.setCanvas(canvas);
+  }
 
   @AfterEach
   public void cleanUp() {
@@ -346,6 +352,7 @@ public class DrawingServiceTest {
 
     drawingService.addShape(new Rectangle(x1, y1, x2, y2));
     drawingService.undoChange();
+
     for (int i = y1; i < y2 + 1; i++) {
       assertEquals(getEmptyInnerLine(), String.valueOf(canvas.content[i]));
     }

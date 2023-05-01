@@ -37,7 +37,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.cs.hometask.App</mainClass>
+              <mainClass>com.cs.hometask.Application</mainClass>
             </manifest>
           </archive>
         </configuration>

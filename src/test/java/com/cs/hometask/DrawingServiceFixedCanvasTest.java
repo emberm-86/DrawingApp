@@ -1,6 +1,7 @@
 package com.cs.hometask;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,8 +17,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public class DrawingServiceFixedCanvasTest {
 
-  private final Canvas canvas = new Canvas('-', '|', 20, 4);
-  private final DrawingService drawingService = new DrawingServiceImpl(canvas);
+  private static final Canvas canvas = new Canvas('-', '|', 20, 4);
+  private static final DrawingService drawingService = new DrawingServiceImpl();
+
+  @BeforeAll
+  public static void setUp() {
+    drawingService.setCanvas(canvas);
+  }
 
   @AfterEach
   public void cleanUp() {

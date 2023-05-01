@@ -7,29 +7,42 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
-import static com.cs.hometask.Canvas.CANVAS_FRAME_SIZE;
-
 public class DrawingServiceImpl implements DrawingService {
 
-  private final Canvas canvas;
+  private Canvas canvas;
   private final Stack<Map<Coordinate, Character>> stateCache;
 
-  public DrawingServiceImpl(Canvas canvas) {
-    this.canvas = canvas;
+  public DrawingServiceImpl() {
     this.stateCache = new Stack<>();
   }
 
   @Override
+  public void setCanvas(Canvas canvas) {
+    this.canvas = canvas;
+  }
+
+  @Override
   public void addShape(Shape shape) {
-    if (!isValid(shape)) {
+    if (!isCanvasCreated()) {
+      System.out.println("The canvas has not been created!");
+      return;
+    }
+
+    if (!canvas.isValid(shape)) {
       throw new IllegalArgumentException("Error: Your input is out of the canvas! " + shape);
     }
+
     shape.draw(stateCache, canvas);
   }
 
   @Override
   public void bucketFill(int x, int y, char c) {
-    if (!isValidX(x) || !isValidY(y)) {
+    if (!isCanvasCreated()) {
+      System.out.println("The canvas has not been created!");
+      return;
+    }
+
+    if (!canvas.isValidX(x) || !canvas.isValidY(y)) {
       throw new IllegalArgumentException(
           "Error: Your input is out of the canvas size! Input: { x=" + x + ", y=" + y + " }");
     }
@@ -58,19 +71,19 @@ public class DrawingServiceImpl implements DrawingService {
 
       queue.remove();
 
-      if (isValidX(x1 + 1) && !vis[y1][x1 + 1] && canvas.content[y1][x1 + 1] == preColor) {
+      if (canvas.isValidX(x1 + 1) && !vis[y1][x1 + 1] && canvas.content[y1][x1 + 1] == preColor) {
         addNeighbourToQueue(y1, x1 + 1, preColor, vis, beforeState, queue);
       }
 
-      if (isValidX(x1 - 1) && !vis[y1][x1 - 1] && canvas.content[y1][x1 - 1] == preColor) {
+      if (canvas.isValidX(x1 - 1) && !vis[y1][x1 - 1] && canvas.content[y1][x1 - 1] == preColor) {
         addNeighbourToQueue(y1, x1 - 1, preColor, vis, beforeState, queue);
       }
 
-      if (isValidY(y1 + 1) && !vis[y1 + 1][x1] && canvas.content[y1 + 1][x1] == preColor) {
+      if (canvas.isValidY(y1 + 1) && !vis[y1 + 1][x1] && canvas.content[y1 + 1][x1] == preColor) {
         addNeighbourToQueue(y1 + 1, x1, preColor, vis, beforeState, queue);
       }
 
-      if (isValidY(y1 - 1) && !vis[y1 - 1][x1] && canvas.content[y1 - 1][x1] == preColor) {
+      if (canvas.isValidY(y1 - 1) && !vis[y1 - 1][x1] && canvas.content[y1 - 1][x1] == preColor) {
         addNeighbourToQueue(y1 - 1, x1, preColor, vis, beforeState, queue);
       }
     }
@@ -79,6 +92,7 @@ public class DrawingServiceImpl implements DrawingService {
 
   private void addNeighbourToQueue(int ny, int nx, char preColor, boolean[][] vis,
       Map<Coordinate, Character> beforeState, Queue<Coordinate> queue) {
+
     Coordinate coordinate = new Coordinate(ny, nx);
     beforeState.put(coordinate, preColor);
     queue.add(coordinate);
@@ -101,19 +115,15 @@ public class DrawingServiceImpl implements DrawingService {
 
   @Override
   public void draw() {
+    if (!isCanvasCreated()) {
+      return;
+    }
     System.out.println("Canvas state after the last successful drawing:");
     Arrays.stream(canvas.content).forEach(line -> System.out.println(String.valueOf(line)));
   }
 
-  private boolean isValid(Shape d) {
-    return isValidX(d.x1) && isValidX(d.x2) && isValidY(d.y1) && isValidY(d.y2);
-  }
-
-  private boolean isValidX(int x) {
-    return x >= CANVAS_FRAME_SIZE && x < canvas.content[0].length - CANVAS_FRAME_SIZE;
-  }
-
-  private boolean isValidY(int y) {
-    return y >= CANVAS_FRAME_SIZE && y < canvas.content.length - CANVAS_FRAME_SIZE;
+  @Override
+  public boolean isCanvasCreated() {
+    return canvas != null;
   }
 }
