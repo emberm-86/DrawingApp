@@ -1,4 +1,8 @@
-package com.cs.hometask;
+package com.cs.hometask.service;
+
+import com.cs.hometask.domain.Line;
+import com.cs.hometask.domain.Rectangle;
+import com.cs.hometask.domain.Shape;
 
 public class ShapeFactory {
 

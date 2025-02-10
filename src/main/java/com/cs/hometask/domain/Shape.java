@@ -1,4 +1,4 @@
-package com.cs.hometask;
+package com.cs.hometask.domain;
 
 import java.util.Map;
 import java.util.Stack;

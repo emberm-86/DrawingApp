@@ -1,9 +1,10 @@
-package com.cs.hometask;
+package com.cs.hometask.domain;
 
 public class Canvas {
 
-  static final Integer CANVAS_FRAME_SIZE = 1;
-  final char[][] content;
+  public static final Integer CANVAS_FRAME_SIZE = 1;
+
+  private final char[][] content;
   private final char td;
   private final char lr;
 
@@ -50,5 +51,9 @@ public class Canvas {
 
   public boolean isValid(Shape d) {
     return isValidX(d.x1) && isValidX(d.x2) && isValidY(d.y1) && isValidY(d.y2);
+  }
+
+  public char[][] getContent() {
+    return content;
   }
 }
