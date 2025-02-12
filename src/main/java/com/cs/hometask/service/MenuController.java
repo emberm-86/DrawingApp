@@ -63,12 +63,9 @@ public class MenuController {
     String typeCode = getTypeCode(arguments);
     switch (typeCode) {
       case "C":
-        Canvas canvas =
-            new Canvas(
-                TOP_DOWN_BOUNDARY_CHAR,
-                LEFT_RIGHT_BOUNDARY_CHAR,
-                Integer.parseInt(arguments[1]),
-                Integer.parseInt(arguments[2]));
+        int width = Integer.parseInt(arguments[1]);
+        int height = Integer.parseInt(arguments[2]);
+        Canvas canvas = new Canvas(TOP_DOWN_BOUNDARY_CHAR, LEFT_RIGHT_BOUNDARY_CHAR, width, height);
         drawingService.setCanvas(canvas);
         break;
 
@@ -78,8 +75,10 @@ public class MenuController {
         break;
 
       case "B":
-        drawingService.bucketFill(
-            Integer.parseInt(arguments[1]), Integer.parseInt(arguments[2]), arguments[3].charAt(0));
+        int x = Integer.parseInt(arguments[1]);
+        int y = Integer.parseInt(arguments[2]);
+        char fillingChar = arguments[3].charAt(0);
+        drawingService.bucketFill(x, y, fillingChar);
         break;
 
       case "U":
