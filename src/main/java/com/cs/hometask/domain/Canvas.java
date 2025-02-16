@@ -1,5 +1,7 @@
 package com.cs.hometask.domain;
 
+import com.cs.hometask.service.ShapeStateFactory;
+
 import java.util.*;
 
 public class Canvas {
@@ -66,6 +68,7 @@ public class Canvas {
     if (!isValid(shape)) {
       throw new IllegalArgumentException("Error: Your input is out of the canvas! " + shape);
     }
+    persistPreviousState(ShapeStateFactory.createShapeState(shape, this));
     shape.drawToCanvas(this);
   }
 
