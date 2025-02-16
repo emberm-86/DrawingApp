@@ -12,11 +12,10 @@ public class ShapeFactory {
     int x2 = Integer.parseInt(arguments[3]);
     int y2 = Integer.parseInt(arguments[4]);
 
-    if ("R".equals(typeCode)) {
-      return new Rectangle(x1, y1, x2, y2);
-    } else if ("L".equals(typeCode)) {
-      return new Line(x1, y1, x2, y2);
-    }
-    return null;
+    return switch (typeCode) {
+      case "R" -> new Rectangle(x1, y1, x2, y2);
+      case "L" -> new Line(x1, y1, x2, y2);
+      default -> null;
+    };
   }
 }

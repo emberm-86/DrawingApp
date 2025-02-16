@@ -8,10 +8,10 @@ import com.cs.hometask.domain.Shape;
 public class ShapeDrawer {
 
   public static void drawToCanvas(Shape shape, Canvas canvas) {
-    if (shape instanceof Rectangle) {
-      ((Rectangle) shape).getLines().forEach(line -> drawLine(line, canvas));
-    } else if (shape instanceof Line) {
-      drawLine((Line) shape, canvas);
+    switch (shape) {
+      case Rectangle rectangle -> rectangle.getLines().forEach(line -> drawLine(line, canvas));
+      case Line line -> drawLine(line, canvas);
+      default -> {}
     }
   }
 

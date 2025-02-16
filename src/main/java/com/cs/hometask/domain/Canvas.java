@@ -69,7 +69,7 @@ public class Canvas {
     if (!isValid(shape)) {
       throw new IllegalArgumentException("Error: Your input is out of the canvas! " + shape);
     }
-    persistPreviousState(ShapeStateFactory.createShapeState(shape, this));
+    saveStateBeforeDrawing(ShapeStateFactory.createSnapShot(shape, this));
     ShapeDrawer.drawToCanvas(shape, this);
   }
 
@@ -94,8 +94,8 @@ public class Canvas {
     while (!queue.isEmpty()) {
       Coordinate coordinate = queue.peek();
 
-      int x1 = coordinate.getX();
-      int y1 = coordinate.getY();
+      int x1 = coordinate.x();
+      int y1 = coordinate.y();
 
       char preColor = content[y1][x1];
       beforeState.put(new Coordinate(y1, x1), preColor);
@@ -125,7 +125,7 @@ public class Canvas {
   public void undoChange() {
     if (!stateCache.isEmpty()) {
       Map<Coordinate, Character> lastChange = stateCache.pop();
-      lastChange.forEach((k, v) -> content[k.getY()][k.getX()] = v);
+      lastChange.forEach((k, v) -> content[k.y()][k.x()] = v);
     }
   }
 
@@ -148,7 +148,7 @@ public class Canvas {
     Arrays.stream(content).forEach(line -> System.out.println(String.valueOf(line)));
   }
 
-  public void persistPreviousState(Map<Coordinate, Character> state) {
+  public void saveStateBeforeDrawing(Map<Coordinate, Character> state) {
     stateCache.push(state);
   }
 }

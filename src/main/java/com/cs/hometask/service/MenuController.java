@@ -14,14 +14,13 @@ import static com.cs.hometask.service.ShapeFactory.createShape;
 
 public class MenuController {
 
+  private static final char TOP_DOWN_BOUNDARY_CHAR = '-';
+  private static final char LEFT_RIGHT_BOUNDARY_CHAR = '|';
   private final DrawingService drawingService;
 
   public MenuController(DrawingService drawingService) {
     this.drawingService = drawingService;
   }
-
-  private static final char TOP_DOWN_BOUNDARY_CHAR = '-';
-  private static final char LEFT_RIGHT_BOUNDARY_CHAR = '|';
 
   public void repaint() {
     drawingService.draw();
@@ -61,32 +60,23 @@ public class MenuController {
 
   public void launchSelectedMenu(String[] arguments) {
     String typeCode = getTypeCode(arguments);
+
     switch (typeCode) {
-      case "C":
+      case "C" -> {
         int width = Integer.parseInt(arguments[1]);
         int height = Integer.parseInt(arguments[2]);
         Canvas canvas = new Canvas(TOP_DOWN_BOUNDARY_CHAR, LEFT_RIGHT_BOUNDARY_CHAR, width, height);
         drawingService.setCanvas(canvas);
-        break;
-
-      case "R":
-      case "L":
-        drawingService.addShape(createShape(typeCode, arguments));
-        break;
-
-      case "B":
+      }
+      case "R", "L" -> drawingService.addShape(createShape(typeCode, arguments));
+      case "B" -> {
         int x = Integer.parseInt(arguments[1]);
         int y = Integer.parseInt(arguments[2]);
         char fillingChar = arguments[3].charAt(0);
         drawingService.bucketFill(x, y, fillingChar);
-        break;
-
-      case "U":
-        drawingService.undoChange();
-        break;
-
-      default:
-        break;
+      }
+      case "U" -> drawingService.undoChange();
+      default -> {}
     }
   }
 }
