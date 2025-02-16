@@ -1,7 +1,6 @@
 package com.cs.hometask.domain;
 
 import java.util.Map;
-import java.util.Stack;
 
 public class Rectangle extends Line {
 
@@ -10,23 +9,19 @@ public class Rectangle extends Line {
   }
 
   @Override
-  public void draw(Stack<Map<Coordinate, Character>> stateCache, Canvas canvas) {
-    stateCache.push(getState(canvas));
-    addRectangle(canvas);
+  public void drawToCanvas(Canvas canvas) {
+    canvas.persistPreviousState(createSnapshot(canvas));
+    super.drawNewLine(x1, y1, x2, y1, canvas);
+    super.drawNewLine(x1, y1, x1, y2, canvas);
+    super.drawNewLine(x2, y1, x2, y2, canvas);
+    super.drawNewLine(x1, y2, x2, y2, canvas);
   }
 
-  private void addRectangle(Canvas canvas) {
-    addLine(x1, y1, x2, y1, canvas);
-    addLine(x1, y1, x1, y2, canvas);
-    addLine(x2, y1, x2, y2, canvas);
-    addLine(x1, y2, x2, y2, canvas);
-  }
-
-  private Map<Coordinate, Character> getState(Canvas canvas) {
-    Map<Coordinate, Character> state = super.getState(x1, y1, x2, y1, canvas);
-    state.putAll(super.getState(x1, y1, x1, y2, canvas));
-    state.putAll(super.getState(x2, y1, x2, y2, canvas));
-    state.putAll(super.getState(x1, y2, x2, y2, canvas));
+  private Map<Coordinate, Character> createSnapshot(Canvas canvas) {
+    Map<Coordinate, Character> state = super.createSnapshot(x1, y1, x2, y1, canvas);
+    state.putAll(super.createSnapshot(x1, y1, x1, y2, canvas));
+    state.putAll(super.createSnapshot(x2, y1, x2, y2, canvas));
+    state.putAll(super.createSnapshot(x1, y2, x2, y2, canvas));
     return state;
   }
 }

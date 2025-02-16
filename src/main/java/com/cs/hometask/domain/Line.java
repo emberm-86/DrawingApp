@@ -2,7 +2,6 @@ package com.cs.hometask.domain;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
 
 public class Line extends Shape {
 
@@ -11,21 +10,22 @@ public class Line extends Shape {
   }
 
   @Override
-  public void draw(Stack<Map<Coordinate, Character>> stateCache, Canvas canvas) {
-    stateCache.push(getState(x1, y1, x2, y2, canvas));
-    addLine(x1, y1, x2, y2, canvas);
+  public void drawToCanvas(Canvas canvas) {
+    canvas.persistPreviousState(createSnapshot(x1, y1, x2, y2, canvas));
+    drawNewLine(x1, y1, x2, y2, canvas);
   }
 
-  protected void addLine(int x1, int y1, int x2, int y2, Canvas canvas) {
+  protected void drawNewLine(int x1, int y1, int x2, int y2, Canvas canvas) {
+    char[][] content = canvas.getContent();
     for (int x = x1; x < x2 + 1; x++) {
-      canvas.getContent()[y1][x] = 'x';
+      content[y1][x] = 'x';
     }
     for (int y = y1; y < y2 + 1; y++) {
-      canvas.getContent()[y][x2] = 'x';
+      content[y][x2] = 'x';
     }
   }
 
-  protected Map<Coordinate, Character> getState(int x1, int y1, int x2, int y2, Canvas canvas) {
+  protected Map<Coordinate, Character> createSnapshot(int x1, int y1, int x2, int y2, Canvas canvas) {
     Map<Coordinate, Character> state = new HashMap<>();
     char[][] content = canvas.getContent();
 

@@ -1,8 +1,5 @@
 package com.cs.hometask.domain;
 
-import java.util.Map;
-import java.util.Stack;
-
 public abstract class Shape {
 
   int x1;
@@ -32,7 +29,7 @@ public abstract class Shape {
     }
   }
 
-  public abstract void draw(Stack<Map<Coordinate, Character>> stateCache, Canvas canvas);
+  public abstract void drawToCanvas(Canvas canvas);
 
   @Override
   public String toString() {

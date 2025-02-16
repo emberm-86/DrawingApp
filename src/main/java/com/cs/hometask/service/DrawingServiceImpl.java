@@ -1,24 +1,11 @@
 package com.cs.hometask.service;
 
 import com.cs.hometask.domain.Canvas;
-import com.cs.hometask.domain.Coordinate;
 import com.cs.hometask.domain.Shape;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Stack;
 
 public class DrawingServiceImpl implements DrawingService {
 
   private Canvas canvas;
-  private final Stack<Map<Coordinate, Character>> stateCache;
-
-  public DrawingServiceImpl() {
-    this.stateCache = new Stack<>();
-  }
 
   @Override
   public void setCanvas(Canvas canvas) {
@@ -31,12 +18,7 @@ public class DrawingServiceImpl implements DrawingService {
       System.out.println("The canvas has not been created!");
       return;
     }
-
-    if (!canvas.isValid(shape)) {
-      throw new IllegalArgumentException("Error: Your input is out of the canvas! " + shape);
-    }
-
-    shape.draw(stateCache, canvas);
+   canvas.addShape(shape);
   }
 
   @Override
@@ -45,92 +27,24 @@ public class DrawingServiceImpl implements DrawingService {
       System.out.println("The canvas has not been created!");
       return;
     }
-
-    if (!canvas.isValidX(x) || !canvas.isValidY(y)) {
-      throw new IllegalArgumentException(
-          "Error: Your input is out of the canvas size! Input: { x=" + x + ", y=" + y + " }");
-    }
-
-    char[][] content = canvas.getContent();
-
-    if (content[y][x] != ' ') {
-      return;
-    }
-
-    Map<Coordinate, Character> beforeState = new HashMap<>();
-
-    boolean[][] vis = new boolean[content.length][content[0].length];
-
-    Queue<Coordinate> queue = new LinkedList<>();
-
-    queue.add(new Coordinate(y, x));
-
-    while (!queue.isEmpty()) {
-      Coordinate coordinate = queue.peek();
-
-      int x1 = coordinate.getX();
-      int y1 = coordinate.getY();
-
-      char preColor = content[y1][x1];
-      beforeState.put(new Coordinate(y1, x1), preColor);
-      content[y1][x1] = c;
-
-      queue.remove();
-
-      if (canvas.isValidX(x1 + 1) && !vis[y1][x1 + 1] && content[y1][x1 + 1] == preColor) {
-        addNeighbourToQueue(y1, x1 + 1, preColor, vis, beforeState, queue);
-      }
-
-      if (canvas.isValidX(x1 - 1) && !vis[y1][x1 - 1] && content[y1][x1 - 1] == preColor) {
-        addNeighbourToQueue(y1, x1 - 1, preColor, vis, beforeState, queue);
-      }
-
-      if (canvas.isValidY(y1 + 1) && !vis[y1 + 1][x1] && content[y1 + 1][x1] == preColor) {
-        addNeighbourToQueue(y1 + 1, x1, preColor, vis, beforeState, queue);
-      }
-
-      if (canvas.isValidY(y1 - 1) && !vis[y1 - 1][x1] && content[y1 - 1][x1] == preColor) {
-        addNeighbourToQueue(y1 - 1, x1, preColor, vis, beforeState, queue);
-      }
-    }
-    stateCache.push(beforeState);
-  }
-
-  private void addNeighbourToQueue(
-      int ny,
-      int nx,
-      char preColor,
-      boolean[][] vis,
-      Map<Coordinate, Character> beforeState,
-      Queue<Coordinate> queue) {
-
-    Coordinate coordinate = new Coordinate(ny, nx);
-    beforeState.put(coordinate, preColor);
-    queue.add(coordinate);
-    vis[ny][nx] = true;
+    canvas.bucketFill(x, y, c);
   }
 
   @Override
   public void clearCanvas() {
     canvas.reset();
-    stateCache.clear();
   }
 
   @Override
   public void undoChange() {
-    if (!stateCache.isEmpty()) {
-      Map<Coordinate, Character> lastChange = stateCache.pop();
-      lastChange.forEach((k, v) -> canvas.getContent()[k.getY()][k.getX()] = v);
-    }
+    canvas.undoChange();
   }
 
   @Override
   public void draw() {
-    if (!isCanvasCreated()) {
-      return;
+    if (isCanvasCreated()) {
+      canvas.draw();
     }
-    System.out.println("Canvas state after the last successful drawing:");
-    Arrays.stream(canvas.getContent()).forEach(line -> System.out.println(String.valueOf(line)));
   }
 
   @Override
