@@ -18,7 +18,7 @@ public class DrawingServiceImpl implements DrawingService {
       System.out.println("The canvas has not been created!");
       return;
     }
-   canvas.addShape(shape);
+    canvas.addShape(shape);
   }
 
   @Override

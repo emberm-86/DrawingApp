@@ -15,11 +15,6 @@ public class Rectangle extends Line {
     lines.add(new Line(x1, y2, x2, y2));
   }
 
-  @Override
-  public void drawToCanvas(Canvas canvas) {
-    lines.forEach(l -> l.draw(canvas));
-  }
-
   public List<Line> getLines() {
     return lines;
   }

@@ -1,5 +1,6 @@
 package com.cs.hometask.domain;
 
+import com.cs.hometask.service.ShapeDrawer;
 import com.cs.hometask.service.ShapeStateFactory;
 
 import java.util.*;
@@ -69,7 +70,7 @@ public class Canvas {
       throw new IllegalArgumentException("Error: Your input is out of the canvas! " + shape);
     }
     persistPreviousState(ShapeStateFactory.createShapeState(shape, this));
-    shape.drawToCanvas(this);
+    ShapeDrawer.drawToCanvas(shape, this);
   }
 
   public void bucketFill(int x, int y, char c) {

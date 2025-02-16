@@ -30,8 +30,6 @@ public abstract class Shape {
     }
   }
 
-  public abstract void drawToCanvas(Canvas canvas);
-
   public int getX1() {
     return x1;
   }
